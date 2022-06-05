@@ -24,13 +24,7 @@ const ImagesList = () => {
     setPageNumber(pageNumber + 1);
   };
   const handleDialogOpen = (id) => () => {
-    const selectedImg = imagesList.filter((images) => images.id === id);
-    setSelectedImage({
-      id: selectedImg[0].id,
-      author: selectedImg[0].author,
-      width: selectedImg[0].width,
-      height: selectedImg[0].height,
-    });
+    setSelectedImage(imagesList.filter((images) => images.id === id)[0]);
     setDialogOpen(true);
   };
   const handleDialogClose = () => {
