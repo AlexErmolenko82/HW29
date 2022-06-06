@@ -7,11 +7,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import InfoDialog from "./InfoDialog";
 
 const ImagesList = () => {
   const [imagesList, setImagesList] = useState([]);
@@ -23,12 +19,10 @@ const ImagesList = () => {
   const handleButtonClick = () => {
     setPageNumber(pageNumber + 1);
   };
-  const handleDialogOpen = (id) => () => {
-    setSelectedImage(imagesList.filter((images) => images.id === id)[0]);
+
+  const handleDialogOpen = (selectedObject) => () => {
+    setSelectedImage(selectedObject);
     setDialogOpen(true);
-  };
-  const handleDialogClose = () => {
-    setDialogOpen(false);
   };
 
   useEffect(() => {
@@ -61,18 +55,18 @@ const ImagesList = () => {
         Image gallery
       </Typography>
       <ImageList cols={2}>
-        {imagesList.map(({ id, download_url }) => (
-          <ImageListItem key={id}>
+        {imagesList.map((element) => (
+          <ImageListItem key={element.id}>
             <Box
-              onClick={handleDialogOpen(id)}
-              key={id}
+              onClick={handleDialogOpen(element)}
+              key={element.id}
               component="img"
               sx={{
                 objectFit: "contain",
                 height: "100px",
               }}
-              alt={download_url}
-              src={resizeImageUrl(download_url, 100)}
+              alt={element.download_url}
+              src={resizeImageUrl(element.download_url, 100)}
             />
           </ImageListItem>
         ))}
@@ -84,25 +78,7 @@ const ImagesList = () => {
           show more
         </Button>
       )}
-      <Dialog open={isDialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>About picture #{selectedImage.id}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Author: {selectedImage.author}
-            <br />
-            Original picture size
-            <br />
-            width: {selectedImage.width}
-            <br />
-            height: {selectedImage.height}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose} autoFocus>
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <InfoDialog isOpen={isDialogOpen} info={selectedImage} />
     </Box>
   );
 };
