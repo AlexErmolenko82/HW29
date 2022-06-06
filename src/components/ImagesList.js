@@ -87,9 +87,7 @@ const ImagesList = () => {
       <Dialog open={isDialogOpen} onClose={handleDialogClose}>
         <InfoDialog info={selectedImage} />
         <DialogActions>
-          <Button onClick={handleDialogClose} autoFocus>
-            Close
-          </Button>
+          <Button onClick={handleDialogClose}>Close</Button>
         </DialogActions>
       </Dialog>
     </Box>

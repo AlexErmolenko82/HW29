@@ -8,11 +8,9 @@ const InfoDialog = ({ info }) => {
     <>
       <DialogTitle>About picture #{info.id}</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Author: {info.author}
-          <br />
-          Original picture size
-          <br />
+        <DialogContentText p={1}>Author: {info.author}</DialogContentText>
+        <DialogContentText p={1}>Original picture size:</DialogContentText>
+        <DialogContentText p={1}>
           width: {info.width}px
           <br />
           height: {info.height}px
