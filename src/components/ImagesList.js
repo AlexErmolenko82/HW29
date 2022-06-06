@@ -8,6 +8,8 @@ import ImageListItem from "@mui/material/ImageListItem";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import InfoDialog from "./InfoDialog";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
 
 const ImagesList = () => {
   const [imagesList, setImagesList] = useState([]);
@@ -23,6 +25,10 @@ const ImagesList = () => {
   const handleDialogOpen = (selectedObject) => () => {
     setSelectedImage(selectedObject);
     setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
   };
 
   useEffect(() => {
@@ -78,7 +84,14 @@ const ImagesList = () => {
           show more
         </Button>
       )}
-      <InfoDialog isOpen={isDialogOpen} info={selectedImage} />
+      <Dialog open={isDialogOpen} onClose={handleDialogClose}>
+        <InfoDialog info={selectedImage} />
+        <DialogActions>
+          <Button onClick={handleDialogClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

@@ -1,21 +1,11 @@
-import { useState } from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
+import PropTypes from "prop-types";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-const InfoDialog = ({ isOpen, info }) => {
-  console.log("InfoDialog.props.isOpen:", isOpen);
-
-  const handleDialogClose = () => {
-    isOpen = false;
-    console.log("InfoDialog.props.isOpen after close button:", isOpen);
-  };
-
+const InfoDialog = ({ info }) => {
   return (
-    <Dialog open={isOpen} onClose={handleDialogClose}>
+    <>
       <DialogTitle>About picture #{info.id}</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -28,13 +18,19 @@ const InfoDialog = ({ isOpen, info }) => {
           height: {info.height}px
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleDialogClose} autoFocus>
-          Close
-        </Button>
-      </DialogActions>
-    </Dialog>
+    </>
   );
+};
+
+InfoDialog.propTypes = {
+  info: PropTypes.shape({
+    author: PropTypes.string,
+    download_url: PropTypes.string,
+    height: PropTypes.number,
+    id: PropTypes.string,
+    url: PropTypes.string,
+    width: PropTypes.number,
+  }),
 };
 
 export default InfoDialog;
